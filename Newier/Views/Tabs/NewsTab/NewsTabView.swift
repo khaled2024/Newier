@@ -24,7 +24,9 @@ struct NewsTabView: View {
             ArticleListView(articles: articles)
                 .overlay(overlayView)
             /// if selectedCategory or token (Current Date) will fetch the "loadTask"
-                .task(id: articleNewsNM.fetchTaskToken, loadTask)
+                .task(id: articleNewsNM.fetchTaskToken, {
+                    await loadTask()
+                })
                 .refreshable {
                     refreshTask()
                 }
@@ -73,12 +75,9 @@ struct NewsTabView: View {
 }
 
 struct NewsTabView_Previews: PreviewProvider {
+    @StateObject static var articleBookmarkVM = ArticleBookmarkViewModel.shared
     static var previews: some View {
-        TabView {
-            NewsTabView(articleNewsNM: ArticleViewModel(articles: Article.previewData))
-                .tabItem {
-                    Label("News", systemImage: "newspaper")
-                }
-        }
+        NewsTabView(articleNewsNM: ArticleViewModel(articles: Article.previewData))
+            .environmentObject(articleBookmarkVM)
     }
 }

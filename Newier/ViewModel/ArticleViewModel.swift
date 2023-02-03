@@ -11,12 +11,10 @@ enum DataFetchPhase<T> {
     case success(T)
     case failure(Error)
 }
-
 struct FetchTaskToken: Equatable{
     var category: Category
     var token: Date
 }
-
 @MainActor
 class ArticleViewModel: ObservableObject{
     @Published var phase = DataFetchPhase<[Article]>.empty

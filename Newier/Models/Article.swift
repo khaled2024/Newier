@@ -10,15 +10,14 @@ import Foundation
 private let relativeDateFormatter = RelativeDateTimeFormatter()
 struct Article {
     let source: Source
-    
     let title: String
     let url: String
     let publishedAt: Date
-    
     let auther: String?
     let description: String?
     let urlToImage: String?
     
+    //.....
     var autherText: String{
         auther ?? ""
     }
@@ -29,7 +28,7 @@ struct Article {
         "\(source.name) · \(relativeDateFormatter.localizedString(for: publishedAt, relativeTo: Date()))"
     }
     var articleURL: URL{
-        URL(string: url)!
+        URL(string: url) ?? URL(string: "https://github.com/khaled2024")!
     }
     var imageURL: URL?{
         guard let urlToImage = urlToImage else{return nil}
